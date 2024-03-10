@@ -126,11 +126,11 @@ class MovieCard {
     }
     @Composable
     fun MovieText(movie: Movie){
-        Text(text = "Director: " + movie.director)
-        Text(text = "Released: " + movie.year)
-        Text(text = "Genre: " + movie.genre)
-        Text(text = "Autors: " + movie.actors)
-        Text(text = "Rating: " + movie.rating)
+        Text(text = "Director: ${movie.director}")
+        Text(text = "Released: ${movie.year}")
+        Text(text = "Genre: ${movie.genre}")
+        Text(text = "Actors: ${movie.actors}")
+        Text(text = "Rating: ${movie.rating}")
         Divider(
             modifier = Modifier
                 .padding(vertical = 8.dp)
