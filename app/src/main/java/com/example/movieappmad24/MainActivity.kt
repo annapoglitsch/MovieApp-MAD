@@ -5,26 +5,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,7 +30,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,8 +41,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.example.movieappmad24.models.Movie
+import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.ui.theme.MovieAppMAD24Theme
 
 class MainActivity : ComponentActivity() {
@@ -96,11 +95,16 @@ class MainActivity : ComponentActivity() {
                         },
                         content = {
                             Column(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(
+                                        bottom = 50.dp,
+                                        top = 50.dp
+                                    ),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+
                             ) {
-                                MovieCard()
+                                MovieList(movieList = getMovies())
                             }
 
                         }
@@ -110,9 +114,23 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Preview
+    /*MovieList: https://www.geeksforgeeks.org/android-jetpack-compose-create-a-movie-app/
+    https://developer.android.com/jetpack/compose/lists */
     @Composable
-    fun MovieCard() {
+    fun MovieList(movieList: List<Movie> = getMovies()) {
+
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(movieList) { movie ->
+                    MovieCard(movie)
+                }
+            }
+
+    }
+
+    @Composable
+    fun MovieCard(movie: Movie) {
         var expanded by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
@@ -130,7 +148,7 @@ class MainActivity : ComponentActivity() {
                     .height(150.dp)
             )
             {
-                Image(
+                AsyncImage(
                     modifier = Modifier
                         .padding(
                             start = 10.dp,
@@ -140,8 +158,8 @@ class MainActivity : ComponentActivity() {
                         )
                         .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp)),
                     contentScale = ContentScale.Crop,
-                    painter = painterResource(id = R.drawable.movie_image),
-                    contentDescription = "placeholder_image"
+                    model = movie.images[0],
+                    contentDescription = "movie_image"
                 )
                 Box() {
                     Icon(
@@ -154,36 +172,34 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
-            
-                Row(
-                    modifier = Modifier
-                        .background(Color.LightGray)
-                        .animateContentSize()
-                        .width(350.dp)
-                        .height(30.dp)
-                        .padding(
-                            start = 10.dp,
-                        ),
-                ) {
 
-
-                    Text(
-                        text = "Avatar"
+            Row(
+                modifier = Modifier
+                    .background(Color.LightGray)
+                    .animateContentSize()
+                    .width(350.dp)
+                    .height(30.dp)
+                    .padding(
+                        start = 10.dp,
+                    ),
+            ) {
+                Text(
+                    text = movie.title, fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Button(
+                    onClick = { expanded = !expanded },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = Color.Black
                     )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Button(
-                        onClick = { expanded = !expanded },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = Color.Black
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(id = if (expanded) R.drawable.baseline_keyboard_arrow_down_24 else R.drawable.baseline_keyboard_arrow_up_24),
-                            contentDescription = null
-                        )
-                    }
+                ) {
+                    Icon(
+                        painter = painterResource(id = if (expanded) R.drawable.baseline_keyboard_arrow_down_24 else R.drawable.baseline_keyboard_arrow_up_24),
+                        contentDescription = null
+                    )
                 }
+            }
             Column(
                 modifier = Modifier
                     .background(Color.LightGray)
@@ -191,14 +207,15 @@ class MainActivity : ComponentActivity() {
                     .padding(
                         start = 10.dp,
                     ),
-            ) { if (expanded){
-                Text(text = "Director: ")
-                Text(text = "Released: ")
-                Text(text = "Genre: ")
-                Text(text = "Autors: ")
-                Text(text = "Rating: ")
-                Text(text = "Plot: ")
-            }
+            ) {
+                if (expanded) {
+                    Text(text = "Director: " + movie.director)
+                    Text(text = "Released: " + movie.year)
+                    Text(text = "Genre: " + movie.genre)
+                    Text(text = "Autors: " + movie.actors)
+                    Text(text = "Rating: " + movie.rating)
+                    Text(text = "Plot: " + movie.plot)
+                }
 
             }
         }
