@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,14 +21,17 @@ class AppBars {
     @OptIn(ExperimentalMaterial3Api::class)
     fun TopAppBar(){
         CenterAlignedTopAppBar(
-            modifier = Modifier.background(Color.Cyan),
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
             title = { Text("MovieApp", fontWeight = FontWeight.Bold) }
         )
     }
 
     @Composable
     fun BottomAppBar(){
-        androidx.compose.material3.BottomAppBar(modifier = Modifier.background(Color.Cyan)) {
+        androidx.compose.material3.BottomAppBar(modifier = Modifier.background(Color.Blue)) {
             NavigationBarItem(
                 label = { Text(text = "Home") },
                 selected = true,
