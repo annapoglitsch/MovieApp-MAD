@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.Movie
+import com.example.movieappmad24.models.getMovies
 
 //This class functions as the MovieCard-Structure
 class MovieCard {
@@ -136,5 +139,21 @@ class MovieCard {
             color = Color.Black
         )
         Text(text = "Plot: " + movie.plot)
+    }
+
+    /*MovieList: https://www.geeksforgeeks.org/android-jetpack-compose-create-a-movie-app/
+   https://developer.android.com/jetpack/compose/lists */
+    @Composable
+    fun MovieList(movieList: List<Movie> = getMovies()) {
+        LazyColumn(
+            modifier = Modifier.padding(
+                top = 10.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(movieList) { movie ->
+                MovieRow(movie)
+            }
+        }
     }
 }
