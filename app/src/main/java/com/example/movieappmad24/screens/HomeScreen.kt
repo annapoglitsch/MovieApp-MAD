@@ -1,8 +1,10 @@
 package com.example.movieappmad24.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -79,13 +81,14 @@ fun HomeScreen() {
 }
 
 @Composable
-fun MovieCard(movie: Movie){
+fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}){
     var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .height(if (expanded) 380.dp else 180.dp)
             .width(350.dp)
-            .background(Color.White),
+            .background(Color.White)
+            .clickable { onItemClick(movie.id) },
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

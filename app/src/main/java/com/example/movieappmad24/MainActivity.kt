@@ -14,10 +14,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
                 Navigation()
-            MovieAppMAD24Theme {
+          /*  MovieAppMAD24Theme {
                 HomeScreen()
 
-            }
+            }*/
         }
     }
 }
