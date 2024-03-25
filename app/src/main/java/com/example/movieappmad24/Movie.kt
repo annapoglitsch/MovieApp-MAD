@@ -150,4 +150,15 @@ fun getMovies(): List<Movie> {
             rating = "9.5"),
 
         )
+
+}
+
+fun getMovieById(movieId: String?): Movie? {
+    val movies = getMovies()
+    movies.forEach { movie ->
+        if (movie.id == movieId) {
+            return movie
+        }
+    }
+    return null
 }

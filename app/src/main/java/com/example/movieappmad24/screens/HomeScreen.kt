@@ -39,6 +39,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movieappmad24.AppBars
 import com.example.movieappmad24.R
@@ -48,7 +49,7 @@ import com.example.movieappmad24.models.getMovies
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val AppBar = AppBars()
     
     Surface(
@@ -74,7 +75,7 @@ fun HomeScreen() {
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                MovieList()
+                MovieList(movieList = getMovies(), navController)
             }
         }
     }
@@ -185,7 +186,7 @@ fun MovieText(movie: Movie) {
 }
 
 @Composable
-fun MovieList(movieList: List<Movie> = getMovies()) {
+fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController) {
     LazyColumn(
         modifier = Modifier.padding(
             top = 10.dp
@@ -193,7 +194,7 @@ fun MovieList(movieList: List<Movie> = getMovies()) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(movieList) { movie ->
-            MovieCard(movie)
+            MovieCard(movie, onItemClick = {id -> navController.navigate("detailScreen/$id")})
         }
     }
 }

@@ -1,9 +1,12 @@
 package com.example.movieappmad24
 
 import androidx.compose.foundation.background
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -12,7 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavController
+import com.example.movieappmad24.models.Movie
 
 //This Class functions as AppBars (MainScreen)
 class AppBars {
@@ -25,7 +29,7 @@ class AppBars {
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 titleContentColor = MaterialTheme.colorScheme.primary,
             ),
-            title = { Text("MovieApp", fontWeight = FontWeight.Bold) }
+            title = { Text(text = "MovieApp")},
         )
     }
 
@@ -53,5 +57,27 @@ class AppBars {
                     )
                 })
         }
+    }
+
+    @Composable
+    @OptIn(ExperimentalMaterial3Api::class)
+    fun TopAppBarCurrent(movie: Movie? = null, navController: NavController){
+
+        CenterAlignedTopAppBar(
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
+            title = {
+                if (movie != null) {
+                    Text(text = movie.title)
+                }
+            },
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack()}) {
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Navigation Icon")
+                }
+            },
+        )
     }
 }
