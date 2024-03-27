@@ -70,7 +70,7 @@ fun HomeScreen(navController: NavController) {
                     .fillMaxSize()
                     .padding(
                         bottom = 50.dp,
-                        top = 50.dp
+                        top = 70.dp
                         //PaddingValues
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
