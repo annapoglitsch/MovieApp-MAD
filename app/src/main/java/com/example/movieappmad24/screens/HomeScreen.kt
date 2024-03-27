@@ -59,10 +59,10 @@ fun HomeScreen(navController: NavController) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                AppBar.TopAppBar()
+                AppBar.TopAppBar("MovieApp")
             },
             bottomBar = {
-                AppBar.BottomAppBar()
+                AppBar.BottomAppBar(navController)
             },
         ){//PddingValues ->
             Column(

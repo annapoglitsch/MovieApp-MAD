@@ -16,30 +16,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.movieappmad24.models.Movie
+import com.example.movieappmad24.screens.WatchlistScreen
 
 //This Class functions as AppBars (MainScreen)
 class AppBars {
 
     @Composable
     @OptIn(ExperimentalMaterial3Api::class)
-    fun TopAppBar(){
+    fun TopAppBar(titleText: String){
         CenterAlignedTopAppBar(
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 titleContentColor = MaterialTheme.colorScheme.primary,
             ),
-            title = { Text(text = "MovieApp")},
+            title = { Text(text = titleText)},
         )
     }
 
     @Composable
-    fun BottomAppBar(){
+    fun BottomAppBar(navController: NavController){
+        val currentEntry = navController.currentBackStackEntryAsState().value
+        val currentDestination = currentEntry?.destination
         androidx.compose.material3.BottomAppBar(modifier = Modifier.background(Color.Blue)) {
             NavigationBarItem(
                 label = { Text(text = "Home") },
-                selected = true,
-                onClick = {},
+                selected = currentDestination?.route == "homeScreen",
+                onClick = {navController.navigate("homeScreen")},
                 icon = {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_home_24),
@@ -48,8 +52,8 @@ class AppBars {
                 })
             NavigationBarItem(
                 label = { Text(text = "Watchlist") },
-                selected = true,
-                onClick = { /*TODO*/ },
+                selected = currentDestination?.route == "watchlistScreen",
+                onClick = {navController.navigate("watchlistScreen")},
                 icon = {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_star_24),
