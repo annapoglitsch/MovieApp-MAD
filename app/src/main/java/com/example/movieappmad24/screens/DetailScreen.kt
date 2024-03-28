@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad24.screenItems.AppBars
 import com.example.movieappmad24.models.Movie
-import com.example.movieappmad24.models.getMovieById
+import com.example.movieappmad24.models.getMovieId
 import androidx.compose.ui.draw.clip
 import coil.compose.AsyncImage
 
@@ -27,7 +27,7 @@ import coil.compose.AsyncImage
 @Composable
 fun DetailScreen(movieId: String?, navController: NavController) {
     val AppBar = AppBars()
-    val movie: Movie? = getMovieById(movieId)
+    val movie: Movie? = getMovieId(movieId)
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -46,7 +46,7 @@ fun DetailScreen(movieId: String?, navController: NavController) {
 
 @Composable
 fun DetailStructure(movieId: String?) {
-    val movie: Movie? = getMovieById(movieId)
+    val movie: Movie? = getMovieId(movieId)
     Column(
         modifier = Modifier
             .padding(

@@ -153,11 +153,11 @@ fun getMovies(): List<Movie> {
 
 }
 
-fun getMovieById(movieId: String?): Movie? {
-    val movies = getMovies()
-    movies.forEach { movie ->
-        if (movie.id == movieId) {
-            return movie
+fun getMovieId(movieId: String?): Movie? {
+    val mv = getMovies()
+    mv.forEach { mv ->
+        if (mv.id.equals(movieId)) {
+            return mv
         }
     }
     return null
