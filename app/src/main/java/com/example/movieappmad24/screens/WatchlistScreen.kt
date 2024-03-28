@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieappmad24.AppBars
+import com.example.movieappmad24.screenItems.AppBars
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -21,7 +21,7 @@ fun WatchlistScreen(navController: NavController) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                AppBar.TopAppBar("Watchlist")
+                AppBar.TopAppBar("Watchlist", false, navController)
             },
             bottomBar = {
                 AppBar.BottomAppBar(navController)

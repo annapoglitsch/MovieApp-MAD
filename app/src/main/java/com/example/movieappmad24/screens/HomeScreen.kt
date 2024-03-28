@@ -1,7 +1,6 @@
 package com.example.movieappmad24.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -41,7 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.movieappmad24.AppBars
+import com.example.movieappmad24.screenItems.AppBars
 import com.example.movieappmad24.R
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
@@ -59,7 +58,7 @@ fun HomeScreen(navController: NavController) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                AppBar.TopAppBar("MovieApp")
+                AppBar.TopAppBar("MovieApp", false, navController)
             },
             bottomBar = {
                 AppBar.BottomAppBar(navController)

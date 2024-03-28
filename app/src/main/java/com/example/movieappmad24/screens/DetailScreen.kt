@@ -1,9 +1,11 @@
 package com.example.movieappmad24.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieappmad24.AppBars
+import com.example.movieappmad24.screenItems.AppBars
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovieById
 import androidx.compose.ui.draw.clip
@@ -26,13 +28,14 @@ import coil.compose.AsyncImage
 fun DetailScreen(movieId: String?, navController: NavController) {
     val AppBar = AppBars()
     val movie: Movie? = getMovieById(movieId)
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Scaffold(
             topBar = {
-                AppBar.TopAppBarCurrent(movie = movie, navController)
+                movie?.let { AppBar.TopAppBar(it.title, true, navController) }
             }
         ) {
             DetailStructure(movieId)
@@ -56,21 +59,30 @@ fun DetailStructure(movieId: String?) {
         MovieCard(movie = movie!!)
         LazyRow {
             items(movie.images) { image ->
-                AsyncImage(
-                    modifier = Modifier
-                        .padding(
-                            start = 10.dp,
-                            end = 5.dp,
-                            top = 10.dp
-                        )
-                      //  .size(300.dp)
-                        .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp, bottomEnd = 8.dp, bottomStart = 8.dp)),
-                    model = image, contentDescription = "movieImage",
-                )
+                Box(modifier = Modifier .padding(
+                    start = 10.dp,
+                    end = 5.dp,
+                    top = 10.dp
+                ).size(300.dp)) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .padding(
+                                start = 10.dp,
+                                end = 5.dp,
+                                top = 10.dp
+                            )
+                            .clip(
+                                RoundedCornerShape(
+                                    topEnd = 8.dp,
+                                    topStart = 8.dp,
+                                    bottomEnd = 8.dp,
+                                    bottomStart = 8.dp
+                                )
+                            ),
+                        model = image, contentDescription = "movieImage",
+                    )
+                }
             }
         }
     }
 }
-
-//ToDo: paddingValues
-//      imagesize down
