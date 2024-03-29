@@ -17,17 +17,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieappmad24.screenItems.AppBars
+import com.example.movieappmad24.reusableItems.AppBars
 import com.example.movieappmad24.models.Movie
-import com.example.movieappmad24.models.getMovieId
 import androidx.compose.ui.draw.clip
 import coil.compose.AsyncImage
+import com.example.movieappmad24.models.getMovie
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(movieId: String?, navController: NavController) {
     val AppBar = AppBars()
-    val movie: Movie? = getMovieId(movieId)
+    val movie: Movie? = getMovie(movieId)
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -46,7 +46,7 @@ fun DetailScreen(movieId: String?, navController: NavController) {
 
 @Composable
 fun DetailStructure(movieId: String?) {
-    val movie: Movie? = getMovieId(movieId)
+    val movie: Movie? = getMovie(movieId)
     Column(
         modifier = Modifier
             .padding(

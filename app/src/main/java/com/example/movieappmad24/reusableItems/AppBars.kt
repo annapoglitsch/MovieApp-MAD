@@ -1,4 +1,4 @@
-package com.example.movieappmad24.screenItems
+package com.example.movieappmad24.reusableItems
 
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.movieappmad24.R
 
-//This Class functions as AppBars (MainScreen)
+//This Class functions as AppBars
 class AppBars {
 
     @Composable
