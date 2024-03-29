@@ -4,6 +4,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.movieappmad24.navigation.Screen
 import com.example.movieappmad24.screens.DetailScreen
 import com.example.movieappmad24.screens.HomeScreen
 import com.example.movieappmad24.screens.WatchlistScreen
@@ -26,10 +27,4 @@ fun Navigation(){
         }
     }
 }
-//At the moment the below function is not in need of a seperate class, as it grows it might be useful to do so
 
-sealed class Screen (val route: String) {
-    data object Home: Screen(route = "homeScreen")
-    data object Details: Screen(route = "detailScreen/{movieId}")
-    data object Watch: Screen(route = "watchlistScreen")
-}
