@@ -67,7 +67,7 @@ fun DetailStructure(movieId: String?, moviesViewModel: MoviesViewModel) {
         movieItems.MovieCard(
             movie = movie!!,
             onItemClick = {},
-            onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie) })
+            onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie.id) })
         LazyRow {
             items(movie.images) { image ->
                 Box(

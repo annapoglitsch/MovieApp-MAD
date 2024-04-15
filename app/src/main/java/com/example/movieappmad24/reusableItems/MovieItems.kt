@@ -14,12 +14,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -49,7 +53,7 @@ class MovieItems {
     fun MovieCard(
         movie: Movie,
         onItemClick: (String) -> Unit = {},
-        onFavClick: (Movie) -> Unit = {},
+        onFavClick: (String) -> Unit = {},
     ) {
         var expanded by remember { mutableStateOf(false) }
         Card(
@@ -84,24 +88,24 @@ class MovieItems {
                         contentDescription = "movie_image"
                     )
                     Box() {
-                        val imageVektorBorder =
-                            ImageVector.vectorResource(id = R.drawable.baseline_favorite_border_24)
-                        val imageVektor =
-                            ImageVector.vectorResource(id = R.drawable.baseline_favorite_24)
-                        var isClicked by remember { mutableStateOf(false) }
-                        val iconTint = if (isClicked) Color.Red else Color.Unspecified
                         IconButton(
-                            onClick = { onFavClick(movie) },
+                            onClick = { onFavClick(movie.id) },
                             modifier = Modifier.padding(
                                 top = 15.dp,
                                 start = 300.dp,
                             ),
                         ) {
                             Icon(
-                                imageVector = if (movie.favorite) imageVektorBorder else imageVektor,
-                                contentDescription = null,
-                                tint = iconTint
-                            )
+                                modifier = Modifier.clickable {
+                                    onFavClick(movie.id) },
+                                tint = MaterialTheme.colorScheme.primary,
+                                imageVector =
+                                if (movie.isfavorite) {
+                                    Icons.Filled.Favorite
+                                } else {
+                                    Icons.Default.FavoriteBorder
+                                },
+                                contentDescription = "Add Favorites")
                         }
                     }
                 }
@@ -167,7 +171,7 @@ class MovieItems {
 
     @Composable
     fun MovieList(
-        movieList: List<Movie> = getMovies(),
+        movieList: List<Movie>,
         navController: NavController,
         moviesViewModel: MoviesViewModel
     ) {
@@ -181,8 +185,7 @@ class MovieItems {
                 MovieCard(
                     movie,
                     onItemClick = { id -> navController.navigate("detailScreen/$id") },
-                    onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie) })
-
+                    onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie.id) })
             }
         }
     }

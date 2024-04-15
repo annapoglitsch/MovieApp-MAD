@@ -8,19 +8,13 @@ import kotlinx.coroutines.flow.StateFlow
 
 class MoviesViewModel : ViewModel() {
     private val _movieList = getMovies().toMutableStateList()
-    private val _favoriteList = mutableListOf<Movie>()
 
     val movieList: List<Movie>
         get() = _movieList
     val isFavoriteList : List<Movie>
-        get() = _favoriteList
+        get() = _movieList.filter { movie -> movie.isfavorite }
 
-fun toggleFavoriteAttribute(movie: Movie){
+    fun toggleFavoriteAttribute(movieId: String) = _movieList.find { it.id == movieId }?.let { movie ->
         movie.isfavorite = !movie.isfavorite
-        if (movie.isfavorite && !isFavoriteList.contains(movie)){
-            _favoriteList.add(movie)
-        } else {
-            _favoriteList.remove(movie)
-        }
     }
 }
