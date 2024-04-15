@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.getMovie
 import com.example.movieappmad24.movie.MoviesViewModel
+import com.example.movieappmad24.reusableItems.MovieItems
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -44,15 +45,16 @@ fun DetailScreen(movieId: String?, navController: NavController, moviesViewModel
                 movie?.let { AppBar.TopAppBar(it.title, true, navController) }
             }
         ) {
-            DetailStructure(movieId)
+            DetailStructure(movieId, moviesViewModel)
         }
     }
 }
 
 
 @Composable
-fun DetailStructure(movieId: String?) {
+fun DetailStructure(movieId: String?, moviesViewModel: MoviesViewModel) {
     val movie: Movie? = getMovie(movieId)
+    val movieItems = MovieItems()
     Column(
         modifier = Modifier
             .padding(
@@ -62,14 +64,21 @@ fun DetailStructure(movieId: String?) {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MovieCard(movie = movie!!)
+        movieItems.MovieCard(
+            movie = movie!!,
+            onItemClick = {},
+            onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie) })
         LazyRow {
             items(movie.images) { image ->
-                Box(modifier = Modifier .padding(
-                    start = 10.dp,
-                    end = 5.dp,
-                    top = 10.dp
-                ).size(300.dp)) {
+                Box(
+                    modifier = Modifier
+                        .padding(
+                            start = 10.dp,
+                            end = 5.dp,
+                            top = 10.dp
+                        )
+                        .size(300.dp)
+                ) {
                     AsyncImage(
                         modifier = Modifier
                             .padding(

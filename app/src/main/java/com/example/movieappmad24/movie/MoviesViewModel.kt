@@ -4,6 +4,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
+import kotlinx.coroutines.flow.StateFlow
 
 class MoviesViewModel : ViewModel() {
     private val _movieList = getMovies().toMutableStateList()
@@ -14,9 +15,9 @@ class MoviesViewModel : ViewModel() {
     val isFavoriteList : List<Movie>
         get() = _favoriteList
 
-    fun toggleFavoriteAttribute(movie: Movie){
+fun toggleFavoriteAttribute(movie: Movie){
         movie.isfavorite = !movie.isfavorite
-        if (movie.isfavorite){
+        if (movie.isfavorite && !isFavoriteList.contains(movie)){
             _favoriteList.add(movie)
         } else {
             _favoriteList.remove(movie)

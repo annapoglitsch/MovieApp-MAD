@@ -13,11 +13,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad24.movie.MoviesViewModel
 import com.example.movieappmad24.reusableItems.AppBars
+import com.example.movieappmad24.reusableItems.MovieItems
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WatchlistScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
     val AppBar = AppBars()
+    val movieItems = MovieItems()
     Surface {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -28,22 +30,17 @@ fun WatchlistScreen(navController: NavController, moviesViewModel: MoviesViewMod
                 AppBar.BottomAppBar(navController)
             },
         ) {
-            WatchlistScreenStructure(navController = navController, moviesViewModel)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        bottom = 50.dp,
+                        top = 70.dp
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                movieItems.MovieList(movieList = moviesViewModel.isFavoriteList, navController = navController, moviesViewModel = MoviesViewModel())
+            }
         }
-    }
-}
-
-@Composable
-fun WatchlistScreenStructure(navController: NavController, moviesViewModel: MoviesViewModel) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                bottom = 50.dp,
-                top = 70.dp
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        MovieList(navController = navController, moviesViewModel = MoviesViewModel())
     }
 }
