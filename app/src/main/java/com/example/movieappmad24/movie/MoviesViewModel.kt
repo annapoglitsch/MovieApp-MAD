@@ -15,6 +15,7 @@ class MoviesViewModel : ViewModel() {
         get() = _favoriteList
 
     fun toggleFavoriteAttribute(movie: Movie){
+        movie.isfavorite = !movie.isfavorite
         if (movie.isfavorite){
             _favoriteList.add(movie)
         } else {

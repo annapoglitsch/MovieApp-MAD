@@ -21,6 +21,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -51,7 +53,7 @@ import com.example.movieappmad24.movie.MoviesViewModel
 @Composable
 fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
     val AppBar = AppBars()
-    
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -64,7 +66,7 @@ fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
             bottomBar = {
                 AppBar.BottomAppBar(navController)
             },
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -82,7 +84,11 @@ fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
 }
 
 @Composable
-fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}, onFavClick: (String) -> Unit = {}){
+fun MovieCard(
+    movie: Movie,
+    onItemClick: (String) -> Unit = {},
+    onFavClick: () -> Unit = {},
+) {
     var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
@@ -116,14 +122,19 @@ fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}, onFavClick: (Str
                     contentDescription = "movie_image"
                 )
                 Box() {
-                    Icon(
+                    IconButton(
+                        onClick = { onFavClick },
                         modifier = Modifier.padding(
                             top = 18.dp,
                             start = 310.dp,
                         ),
-                        painter = painterResource(id = R.drawable.baseline_favorite_border_24),
-                        contentDescription = null
-                    )
+                    ) {
+                        Icon(
+                            painter = if (movie.isfavorite) painterResource(id = R.drawable.baseline_favorite_border_24) else painterResource(id = R.drawable.baseline_favorite_24),
+                            contentDescription = null,
+                            tint = if (movie.isfavorite) Color.Red else Color.Black
+                        )
+                    }
                 }
             }
             Row(
@@ -168,6 +179,7 @@ fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}, onFavClick: (Str
         }
     }
 }
+
 @Composable
 fun MovieText(movie: Movie) {
     Text(text = "Director: ${movie.director}")
@@ -186,7 +198,11 @@ fun MovieText(movie: Movie) {
 }
 
 @Composable
-fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController, moviesViewModel: MoviesViewModel) {
+fun MovieList(
+    movieList: List<Movie> = getMovies(),
+    navController: NavController,
+    moviesViewModel: MoviesViewModel
+) {
     LazyColumn(
         modifier = Modifier.padding(
             top = 10.dp
@@ -194,7 +210,10 @@ fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(movieList) { movie ->
-            MovieCard(movie, onItemClick = {id -> navController.navigate("detailScreen/$id")}, onFavClick = {moviesViewModel.isFavoriteList})
+            MovieCard(
+                movie,
+                onItemClick = { id -> navController.navigate("detailScreen/$id") },
+                onFavClick = { moviesViewModel.isFavoriteList })
 
         }
     }

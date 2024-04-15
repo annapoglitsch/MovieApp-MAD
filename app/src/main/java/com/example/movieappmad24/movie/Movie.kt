@@ -11,7 +11,7 @@ data class Movie(
     val images: List<String>,
     val trailer: String,
     val rating: String,
-    val isfavorite: Boolean = false,
+    var isfavorite: Boolean = false,
 )
 
 fun getMovies(): List<Movie> {
