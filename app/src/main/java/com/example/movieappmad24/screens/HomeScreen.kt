@@ -44,11 +44,12 @@ import com.example.movieappmad24.reusableItems.AppBars
 import com.example.movieappmad24.R
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.movie.MoviesViewModel
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
     val AppBar = AppBars()
     
     Surface(
@@ -74,14 +75,14 @@ fun HomeScreen(navController: NavController) {
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                MovieList(movieList = getMovies(), navController)
+                MovieList(movieList = getMovies(), navController, moviesViewModel)
             }
         }
     }
 }
 
 @Composable
-fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}){
+fun MovieCard(movie: Movie, onItemClick: (String) -> Unit = {}, onFavClick: (String) -> Unit = {}){
     var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
@@ -185,7 +186,7 @@ fun MovieText(movie: Movie) {
 }
 
 @Composable
-fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController) {
+fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController, moviesViewModel: MoviesViewModel) {
     LazyColumn(
         modifier = Modifier.padding(
             top = 10.dp
@@ -193,7 +194,8 @@ fun MovieList(movieList: List<Movie> = getMovies(), navController: NavController
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(movieList) { movie ->
-            MovieCard(movie, onItemClick = {id -> navController.navigate("detailScreen/$id")})
+            MovieCard(movie, onItemClick = {id -> navController.navigate("detailScreen/$id")}, onFavClick = {moviesViewModel.isFavoriteList})
+
         }
     }
 }

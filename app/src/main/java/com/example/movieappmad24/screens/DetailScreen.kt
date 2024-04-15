@@ -27,10 +27,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.getMovie
+import com.example.movieappmad24.movie.MoviesViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun DetailScreen(movieId: String?, navController: NavController) {
+fun DetailScreen(movieId: String?, navController: NavController, moviesViewModel: MoviesViewModel) {
     val AppBar = AppBars()
     val movie: Movie? = getMovie(movieId)
 
