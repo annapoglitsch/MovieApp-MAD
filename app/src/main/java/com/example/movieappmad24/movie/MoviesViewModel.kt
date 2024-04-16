@@ -4,7 +4,6 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
-import kotlinx.coroutines.flow.StateFlow
 
 class MoviesViewModel : ViewModel() {
     private val _movieList = getMovies().toMutableStateList()

@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onStart() {
+   /* override fun onStart() {
         super.onStart()
         Log.i("MainActivity", "onStart called.")
     }
@@ -48,6 +48,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i("MainActivity", "onDestroy called.")
-    }
+    }*/
 }
 
