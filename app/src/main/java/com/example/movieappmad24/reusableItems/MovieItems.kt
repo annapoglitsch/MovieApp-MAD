@@ -98,7 +98,7 @@ class MovieItems {
                             Icon(
                                 modifier = Modifier.clickable {
                                     onFavClick(movie.id) },
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = MaterialTheme.colorScheme.tertiary,
                                 imageVector =
                                 if (movie.isfavorite) {
                                     Icons.Filled.Favorite
@@ -173,7 +173,7 @@ class MovieItems {
     fun MovieList(
         movieList: List<Movie>,
         navController: NavController,
-        moviesViewModel: MoviesViewModel
+        moviesViewModel: MoviesViewModel,
     ) {
         LazyColumn(
             modifier = Modifier.padding(
