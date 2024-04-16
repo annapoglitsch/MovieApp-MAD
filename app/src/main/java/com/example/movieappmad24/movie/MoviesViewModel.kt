@@ -14,7 +14,13 @@ class MoviesViewModel : ViewModel() {
     val isFavoriteList : List<Movie>
         get() = _movieList.filter { movie -> movie.isfavorite }
 
+
     fun toggleFavoriteAttribute(movieId: String) = _movieList.find { it.id == movieId }?.let { movie ->
         movie.isfavorite = !movie.isfavorite
     }
+
+    fun getMovieId(movieId: String): Movie? {
+        return _movieList.find { it.id ==  movieId}
+    }
+//bei get movieId hat mir manu geholfen -> hab nicht gepackt woran es lag (detailscreen hat kein herz gefüllt)
 }

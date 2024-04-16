@@ -1,17 +1,11 @@
 package com.example.movieappmad24
 
 import Navigation
-import android.media.browse.MediaBrowser.MediaItem
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import com.example.movieappmad24.movie.MoviesViewModel
 import com.example.movieappmad24.ui.theme.MovieAppMAD24Theme
 import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
 
@@ -25,7 +19,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 
     override fun onStart() {
         super.onStart()
