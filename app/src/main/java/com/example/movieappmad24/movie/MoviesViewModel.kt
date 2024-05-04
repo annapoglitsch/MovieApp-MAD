@@ -3,7 +3,7 @@ package com.example.movieappmad24.movie
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieappmad24.data.MovieRepository
+import com.example.movieappmad24.movie.data.MovieRepository
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -16,8 +16,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.movieappmad24.data.MovieDatabase
-import com.example.movieappmad24.data.MovieRepository
+import com.example.movieappmad24.movie.data.MovieDatabase
+import com.example.movieappmad24.movie.data.MovieRepository
 import com.example.movieappmad24.movie.MovieViewModelFactory
 import com.example.movieappmad24.reusableItems.AppBars
 import com.example.movieappmad24.movie.MoviesViewModel

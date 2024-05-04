@@ -1,4 +1,4 @@
-package com.example.movieappmad24.data
+package com.example.movieappmad24.movie.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -20,12 +20,12 @@ interface MovieDao {
     @Delete
     suspend fun delete(movie: Movie)
 
-    @Query("SELECT * from movie where dbId=:id")
+    @Query("SELECT * FROM Movie WHERE id=:id")
     fun get(id: Long): Flow<Movie>
 
-    @Query("SELECT * from movie")
+    @Query("SELECT * FROM Movie")
     fun getAll(): Flow<List<Movie>>
 
-    @Query("SELECT * from movie where favorite= 1")
+    @Query("SELECT * FROM Movie WHERE favorite= 1")
     fun getFavorites(): Flow<List<Movie>>
 }

@@ -39,7 +39,7 @@ fun WatchlistScreen(navController: NavController, moviesViewModel: MoviesViewMod
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                movieItems.MovieList(movieList = moviesViewModel.isFavoriteList, navController = navController, moviesViewModel = moviesViewModel)
+                movieItems.MovieList(navController = navController, moviesviewModel = moviesViewModel)
             }
         }
     }
