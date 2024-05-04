@@ -8,10 +8,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.movieappmad24.data.MovieDatabase
+import com.example.movieappmad24.data.MovieRepository
+import com.example.movieappmad24.movie.MovieViewModelFactory
 import com.example.movieappmad24.reusableItems.AppBars
 import com.example.movieappmad24.movie.MoviesViewModel
 import com.example.movieappmad24.reusableItems.MovieItems
@@ -22,6 +29,12 @@ import com.example.movieappmad24.reusableItems.MovieItems
 fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
     val AppBar = AppBars()
     val movieItems = MovieItems()
+
+    val db = MovieDatabase.getDatabase(LocalContext.current)
+    val repository = MovieRepository(movieDao = db.movieDao())
+    val factory = MovieViewModelFactory(repository = repository)
+    val viewModel: MoviesViewModel = viewModel(factory = factory)
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -45,7 +58,8 @@ fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                movieItems.MovieList(movieList = moviesViewModel.movieList, navController, moviesViewModel)
+                val moviesState by viewModel.movies.collectAsState()
+                movieItems.MovieList(moviesState, navController, moviesViewModel)
             }
         }
     }

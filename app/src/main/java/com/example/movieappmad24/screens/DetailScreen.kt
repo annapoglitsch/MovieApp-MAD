@@ -27,6 +27,7 @@ import com.example.movieappmad24.models.getMovie
 import com.example.movieappmad24.movie.MoviesViewModel
 import com.example.movieappmad24.reusableItems.MovieItems
 import com.example.movieappmad24.mediaPlayer.MediaPlayer
+import kotlinx.coroutines.flow.filter
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -49,7 +50,7 @@ fun DetailScreen(movieId: String?, navController: NavController, moviesViewModel
 }
 @Composable
 fun DetailStructure(movieId: String?, moviesViewModel: MoviesViewModel) {
-    val movie: Movie? = moviesViewModel.getMovieId(movieId!!)
+    val movie: Movie? = getMovie(movieId)
     val movieItems = MovieItems()
     val player = MediaPlayer()
     Column(
@@ -64,7 +65,7 @@ fun DetailStructure(movieId: String?, moviesViewModel: MoviesViewModel) {
         movieItems.MovieCard(
             movie = movie!!,
             onItemClick = {},
-            onFavClick = { moviesViewModel.toggleFavoriteAttribute(movie.id) })
+            onFavClick = {id -> moviesViewModel.toggleFavoriteAttribute(id) })
         player.Player()
         LazyRow {
             items(movie.images) { image ->
