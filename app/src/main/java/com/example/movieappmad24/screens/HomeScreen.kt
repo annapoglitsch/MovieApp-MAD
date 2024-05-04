@@ -16,8 +16,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.movieappmad24.movie.data.MovieDatabase
-import com.example.movieappmad24.movie.data.MovieRepository
+import com.example.movieappmad24.data.MovieDatabase
+import com.example.movieappmad24.data.MovieRepository
+import com.example.movieappmad24.movie.HomeViewModel
 import com.example.movieappmad24.movie.MovieViewModelFactory
 import com.example.movieappmad24.reusableItems.AppBars
 import com.example.movieappmad24.movie.MoviesViewModel
@@ -26,7 +27,7 @@ import com.example.movieappmad24.reusableItems.MovieItems
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
+fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel) {
     val AppBar = AppBars()
     val movieItems = MovieItems()
 
@@ -34,7 +35,6 @@ fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
     val repository = MovieRepository(movieDao = db.movieDao())
     val factory = MovieViewModelFactory(repository = repository)
     val viewModel: MoviesViewModel = viewModel(factory = factory)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -58,8 +58,8 @@ fun HomeScreen(navController: NavController, moviesViewModel: MoviesViewModel) {
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val moviesState by viewModel.movies.collectAsState()
-                movieItems.MovieList(moviesState, navController, moviesViewModel)
+                val moviesViewModel = homeViewModel.createMoviesViewModel()
+                movieItems.MovieList(homeViewModel.movieList, navController, moviesViewModel)
             }
         }
     }

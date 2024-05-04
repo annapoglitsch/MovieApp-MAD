@@ -24,14 +24,13 @@ import com.example.movieappmad24.models.Movie
 import androidx.compose.ui.draw.clip
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.getMovie
-import com.example.movieappmad24.movie.MoviesViewModel
 import com.example.movieappmad24.reusableItems.MovieItems
 import com.example.movieappmad24.mediaPlayer.MediaPlayer
-import kotlinx.coroutines.flow.filter
+import com.example.movieappmad24.movie.DetailsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun DetailScreen(movieId: String?, navController: NavController, moviesViewModel: MoviesViewModel) {
+fun DetailScreen(movieId: String?, navController: NavController, detailsViewModel: DetailsViewModel) {
     val AppBar = AppBars()
     val movie: Movie? = getMovie(movieId)
 
@@ -44,12 +43,12 @@ fun DetailScreen(movieId: String?, navController: NavController, moviesViewModel
                 movie?.let { AppBar.TopAppBar(it.title, true, navController) }
             }
         ) {
-            DetailStructure(movieId, moviesViewModel)
+            DetailStructure(movieId, detailsViewModel)
         }
     }
 }
 @Composable
-fun DetailStructure(movieId: String?, moviesViewModel: MoviesViewModel) {
+fun DetailStructure(movieId: String?, moviesViewModel: DetailsViewModel) {
     val movie: Movie? = getMovie(movieId)
     val movieItems = MovieItems()
     val player = MediaPlayer()

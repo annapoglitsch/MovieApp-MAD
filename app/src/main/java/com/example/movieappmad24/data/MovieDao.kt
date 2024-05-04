@@ -1,4 +1,4 @@
-package com.example.movieappmad24.movie.data
+package com.example.movieappmad24.data
 
 import androidx.room.Dao
 import androidx.room.Delete

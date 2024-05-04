@@ -1,4 +1,4 @@
-package com.example.movieappmad24.movie.data
+package com.example.movieappmad24.data
 
 import com.example.movieappmad24.models.Movie
 import kotlinx.coroutines.flow.Flow

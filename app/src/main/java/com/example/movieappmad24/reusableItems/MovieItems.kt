@@ -38,12 +38,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movieappmad24.R
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.movie.HomeViewModel
 import com.example.movieappmad24.movie.MoviesViewModel
+import com.example.movieappmad24.movie.WatchViewModel
 import com.example.movieappmad24.navigation.Screen
 
 
@@ -174,7 +177,7 @@ class MovieItems {
     fun MovieList(
         movie: List<Movie> = getMovies(),
         navController: NavController,
-        moviesviewModel: MoviesViewModel,
+        moviesViewModel: MoviesViewModel,
     ) {
         LazyColumn(
             modifier = Modifier.padding(
@@ -188,7 +191,7 @@ class MovieItems {
                     onItemClick = { movieId ->
                         navController.navigate(route = Screen.Details.withId(movieId))
                     },
-                    onFavClick = {moviesviewModel.toggleFavourite(movie)})
+                    onFavClick = {moviesViewModel.toggleFavoriteAttribute(movie.id)})
             }
         }
     }

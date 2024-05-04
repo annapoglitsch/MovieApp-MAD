@@ -1,4 +1,4 @@
-package com.example.movieappmad24.movie.data
+package com.example.movieappmad24.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
